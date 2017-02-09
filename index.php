@@ -13,23 +13,49 @@
   <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
   <style>
+    @font-face {
+      font-family: gothbook;
+      src: url("./fonts/GothamNarrow-Book.otf")
+    }
+    @font-face {
+      font-family: gothmed;
+      src: url("./fonts/GothamNarrow-Medium.otf")
+    }
+
+    body{font-family: gothbook;}
+
     table{
       font-size: 0.9em;
+          //border-top: solid 1px;
     }
+
+    thead{
+      border-bottom: solid 1px grey;
+      //font-size: 0.8em;
+      color: grey;
+    }
+
+    .timecol{
+      width:5em;
+      text-align: left;
+    }
+
     .progname{
-      width: 18em;
+      width: 17em;
     }
     .epname{
-      width: 18em;
+      width: 15em;
     }
     .column-data{
-      width: 4em;
+      width: 6em;
       text-align: right;
     }
 
     .column-diff{
       width: 4em;
-      text-align: right;
+      text-align: center;
+      border-right: solid 1px;
+      color: grey;
     }
 
   </style>
@@ -51,10 +77,28 @@
         }).done(function(dat) {
           //console.log("Loading table data! ", tag, dat);
           var htmlcode = "<div><h3>"+tag+"</h3><table>";
+          htmlcode += "<thead><tr><td class='timecol'>start</td> \
+                        <td class='progname'>program</td> \
+                        <td class='epname'>episode</td>";
 
+          for (var b = 0; b < demos.length; b++) {
+            for (var c = 0; c < streams.length; c++) {
+              htmlcode+= "<td class='column-data'>"+streams[c]+"-"+demos[b]+"</td>";
+            }
+              htmlcode+= "<td class='column-diff'>%lift</td>";
+          }
+          htmlcode += "</tr></thead>";
+
+
+          var d, h, m;
           for (var i = 0; i < dat.length; i++) {
+            d=new Date(dat[i]['date_time'])
+            h=d.getHours()
+            h = ((h + 11) % 12 + 1);
+            m =('0'+d.getMinutes()).slice(-2);
+
             htmlcode += "<tr> \
-                          <td>"+dat[i]['date_time']+"</td> \
+                          <td class='timecol'>"+h+":"+m+"</td> \
                           <td class='progname'>"+dat[i]['concat_name']+"</td> \
                           <td class='epname'>"+dat[i]['telecast_episode']+"</td>";
 
