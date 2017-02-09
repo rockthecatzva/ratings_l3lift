@@ -6,7 +6,16 @@
   <meta charset="utf-8">
 
   <title>CULTURE LAB - Daily L3 Lift Report</title>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+    ga('create', 'UA-87285269-2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
   <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
   <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
@@ -68,7 +77,7 @@
 
     var makecall = function(tag, data){
       $.ajax({
-          url: "http://localhost/api-tvratings-phpslim/telecasts.php/getliftreport",
+          url: baseurl+"telecasts.php/getliftreport",
           xhrFields: {
               withCredentials: true
            },
@@ -147,6 +156,8 @@
     var demos = null;
     var streams = ["lsd", "l3d"];
     var metric = "aa";
+    //var baseurl = "http://localhost/api-tvratings-phpslim/";
+    var baseurl = "http://dctrydatrk01.discovery.com/api/";
 
     $(document).ready(function(){
       console.log("App is ready!");
@@ -156,7 +167,7 @@
       console.log(demos);
 
       $.ajax({
-          url: "http://localhost/api-tvratings-phpslim/telecasts.php/getdates",
+          url: baseurl+"telecasts.php/getdates",
           context: document.body
         }).done(function(dat) {
           console.log("Dates are back! ", dat);
